@@ -43,7 +43,7 @@ FastAPI response → React UI with expandable source cards
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/rag-doc-qa.git
+git clone https://github.com/shrutimishra816/rag-doc-qa.git
 cd rag-doc-qa
 ```
 
