@@ -3,11 +3,12 @@ services:
     name: rag-doc-qa-backend
     runtime: python
     rootDir: backend
+    pythonVersion: "3.11.0"
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: OPENAI_API_KEY
-        sync: false          # You'll paste this manually in Render dashboard
+        sync: false
       - key: OPENAI_MODEL
         value: gpt-3.5-turbo
       - key: CHROMA_DB_DIR
@@ -16,8 +17,6 @@ services:
         value: "500"
       - key: CHUNK_OVERLAP
         value: "50"
-      - key: PYTHON_VERSION
-        value: "3.11.0"
     disk:
       name: chroma-storage
       mountPath: /opt/render/project/src/backend/chroma_db
