@@ -2,7 +2,9 @@ import { useState, useRef, useCallback } from 'react'
 import axios from 'axios'
 import { Upload, FileText, CheckCircle, AlertCircle, X, Loader2 } from 'lucide-react'
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
+// In dev: Vite proxy forwards /api → localhost:8000
+// In prod: VITE_API_URL = https://your-render-url.onrender.com
+const API_BASE = import.meta.env.VITE_API_URL || ''
 
 export default function UploadBox({ onUploadSuccess, uploadedFiles, onClear }) {
   const [isDragging, setIsDragging] = useState(false)

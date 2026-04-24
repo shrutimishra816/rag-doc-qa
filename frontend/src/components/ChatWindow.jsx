@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Send, Bot, User, Loader2, FileQuestion, Sparkles } from 'lucide-react'
 import SourceCard from './SourceCard'
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
+const API_BASE = import.meta.env.VITE_API_URL || ''
 
 const SUGGESTED_QUESTIONS = [
   'What is the main topic of this document?',
