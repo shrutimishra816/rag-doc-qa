@@ -3,6 +3,7 @@ retriever.py — RAG Retrieval + Answer Chain
 """
 
 import os
+import httpx
 from dotenv import load_dotenv
 
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
@@ -32,8 +33,23 @@ RAG_PROMPT = PromptTemplate(
 )
 
 
+def get_embeddings():
+    return OpenAIEmbeddings(
+        model="text-embedding-ada-002",
+        http_client=httpx.Client(),
+    )
+
+
+def get_llm():
+    return ChatOpenAI(
+        model=OPENAI_MODEL,
+        temperature=0,
+        http_client=httpx.Client(),
+    )
+
+
 def get_answer(query: str, collection_name: str = "default", k: int = 3) -> dict:
-    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+    embeddings = get_embeddings()
     vectorstore = Chroma(
         persist_directory=CHROMA_DB_DIR,
         embedding_function=embeddings,
@@ -45,7 +61,7 @@ def get_answer(query: str, collection_name: str = "default", k: int = 3) -> dict
         search_kwargs={"k": k},
     )
 
-    llm = ChatOpenAI(model=OPENAI_MODEL, temperature=0)
+    llm = get_llm()
 
     qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
@@ -81,7 +97,7 @@ def get_answer(query: str, collection_name: str = "default", k: int = 3) -> dict
 
 def collection_exists(collection_name: str = "default") -> bool:
     try:
-        embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+        embeddings = get_embeddings()
         vectorstore = Chroma(
             persist_directory=CHROMA_DB_DIR,
             embedding_function=embeddings,
