@@ -84,6 +84,17 @@ Frontend will be live at: `http://localhost:5173`
 
 ---
 
+## 🐳 Run the backend with Docker
+
+```bash
+docker build -t docmind-backend .
+docker run -p 8000:8000 --env-file backend/.env docmind-backend
+```
+
+Backend will be live at: `http://localhost:8000`
+
+---
+
 ## 🔌 API Reference
 
 | Method | Endpoint | Description |
